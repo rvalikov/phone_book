@@ -1,6 +1,4 @@
-# Создать телефонный справочник с возможностью импорта и экспорта данных в формате .txt.
-# Фамилия, имя, отчество, номер телефона - данные, которые должны находиться в файле.
-#
+# Сделал с архитектурой, куда здесь прилепить класс, не понял
 # 1. Программа должна выводить данные
 # 2. Программа должна сохранять данные в текстовом файле
 # 3. Пользователь может ввести одну из характеристик для поиска определенной записи(Например имя или фамилию человека)
@@ -13,102 +11,66 @@
 # 6. Найти контакт
 # 7. Удалить контакт
 # 8 Выход
+import add_phone_book
+import show_phone_book
+import open_phone_book
+import save_phone_book
+import change_phone_book
+import search_phone_book
+import delete_phone_book
+import select
 phone_book = []
 
-# def menu(numMenu):
-#     switcher = {
-#         1: open_phone_book(),
-#         2: save_phone_book(),
-#         3: show_phone_book(),
-#         4: add_phone_book(),
-#         5: change_phone_book(),
-#         6: search_phone_book(),
-#         7: delete_phone_book()
-#     }
-#     operation = switcher.get(numMenu)
-
-def open_phone_book():
-    with open('phone_book.txt', 'r', encoding = 'utf-8') as data:
-        global phone_book
-        phone_book = data.readlines()
-
-        print('Файл открыт')
-        print(phone_book)
-        select()
+class User:
+    def __init__(self, name: str, last_name: str,phone_number: str):
+        self.name = name
+        self.last_name = last_name
+        self.phone_number = phone_number
+    def __str__(self):
+        return f"Пользователь {self.last_name}, {self.name}, телефон{self.phone_number}"
 
 
-def save_phone_book():
-    print("Функция 2 работает")
-    with open('phone_book.txt', 'w+', encoding = 'utf-8') as data:
-        for i in phone_book:
-            data.write(i)
-    select()
-
-
-def show_phone_book():
-    print("Функция 3 работает")
-    if len(phone_book) == 0:
-        print('Вы не открыли файл либо файл пуст')
-    else:
-        for i in phone_book:
-            print(' '.join(i.split(';')))
-        select()
-def add_phone_book():
-    if len(phone_book) == 0:
-        print('Вы не открыли файл либо файл пуст')
-    else:
-        print("Функция 4 работает")
-        user_info = input('Введите данные нового контакта: ')
-        phone_book.append(user_info)
-    select()
-def change_phone_book():
-    print("Функция 5 работает")
-    user_info = int(input('Введите номер контакта, которого вы хотите изменить: '))
-    print("user_info", user_info)
-    print(phone_book[user_info])
-    new_user_info = input('Введите новые данные контакта: ')
-    phone_book[user_info] = new_user_info
-    print(phone_book)
-    select()
-
-def search_phone_book():
-    user_info = int(input('Введите номер контакта, по которому будем искать: '))
-    print(phone_book[user_info])
-    select()
-def delete_phone_book():
-    user_info = int(input('Введите номер контакта, которого вы хотите удалить: '))
-    print(phone_book[user_info])
-    phone_book.pop(user_info)
-    print(phone_book)
-    select()
-def menu(numMenu):
-    print("NumMenu = ", numMenu)
-    if numMenu == "1":
-        print("Вызываю пункт 1")
-        open_phone_book()
-    else:
-        if numMenu == "2":
+def menu(nummenu):
+    print(nummenu)
+    global phone_book
+    match nummenu:
+        case "1":
+            phone_book = open_phone_book.open_phone_book(phone_book)
+            nummenu=select.select()
+            menu(nummenu)
+        case "2":
             print("Вызываю пункт 2")
-            save_phone_book()
-        else:
-            if numMenu == "3":
-                print("Вызываю пункт 3")
-                show_phone_book()
-            else:
-                if numMenu == "4":
-                    add_phone_book()
-                else:
-                    if numMenu == "5":
-                        change_phone_book()
-                    else:
-                        if numMenu == "6":
-                            search_phone_book()
-                        else:
-                            if numMenu == "7":
-                                delete_phone_book()
-def select():
-    numMenu = input("Выберите пункт меню\n 1. Открыть файл\n 2. Сохранить файл\n" 
-                " 3. Показать контакты\n 4. Добавить контакт\n 5. Изменить контакт\n 6. Найти контакт\n 7. Удалить контакт\nВыбор: ")
-    print(numMenu)
-    menu(numMenu)
-select()
+            save_phone_book.save_phone_book(phone_book)
+            nummenu = select.select()
+            menu(nummenu)
+        case "3":
+            print("Вызываю пункт 3")
+            show_phone_book.show_phone_book(phone_book)
+            nummenu = select.select()
+            menu(nummenu)
+        case "4":
+            print("Вызываю пункт 4")
+            add_phone_book.add_phone_book(phone_book)
+            nummenu = select.select()
+            menu(nummenu)
+        case "5":
+            print("Вызываю пункт 5")
+            change_phone_book.change_phone_book(phone_book)
+            nummenu = select.select()
+            menu(nummenu)
+        case "6":
+            print("Вызываю пункт 6")
+            search_phone_book.search_phone_book(phone_book)
+            nummenu = select.select()
+            menu(nummenu)
+        case "7":
+            print("Вызываю пункт 7")
+            delete_phone_book.delete_phone_book(phone_book)
+            nummenu = select.select()
+            menu(nummenu)
+
+
+ivanov = User("Иван", "Иванов", "11111111111")
+print("ivanov= ", ivanov)
+nummenu=select.select()
+menu(nummenu)
