@@ -21,15 +21,25 @@ import delete_phone_book
 import select
 phone_book = []
 
-class User:
-    def __init__(self, name: str, last_name: str,phone_number: str):
-        self.name = name
-        self.last_name = last_name
-        self.phone_number = phone_number
-    def __str__(self):
-        return f"Пользователь {self.last_name}, {self.name}, телефон{self.phone_number}"
-
-
+# class User:
+#     def __init__(self):
+#         self.name = input("Введите имя ")
+#         self.last_name = input("Введите фамилию ")
+#         self.phone_number = input("Введите телефон ")
+#     def __str__(self):
+#         return f"Пользователь {self.last_name}, {self.name}, телефон {self.phone_number}"
+# def new_user():
+#     new_user = User()
+#     phone_book.append(new_user)
+#     print("NewUser", new_user)
+# new_user()
+# new_user()
+# for users in phone_book:
+#     print(users)
+# def print_users(phone_book):
+#     for printsusers in phone_book:
+#         print("printUsers", printsusers)
+# print_users(phone_book)
 def menu(nummenu):
     print(nummenu)
     global phone_book
@@ -70,7 +80,6 @@ def menu(nummenu):
             menu(nummenu)
 
 
-ivanov = User("Иван", "Иванов", "11111111111")
-print("ivanov= ", ivanov)
+
 nummenu=select.select()
 menu(nummenu)
