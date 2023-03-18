@@ -16,6 +16,9 @@ def add_phone_book(phone_book):
 
 
     new_user = User()
+    while len(new_user.phone_number) < 10:
+        print("Номер телефона слишком короткий, повторите ввод")
+        new_user.phone_number = input("новый номер ")
     phone_book.append(new_user)
     print("NewUser", new_user)
     for users in phone_book:

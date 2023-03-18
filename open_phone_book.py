@@ -25,7 +25,4 @@ def open_phone_book(phone_book):
     # чтение массива объектов из файла
     with open('phone_book.pickle', 'rb') as data:
         phone_book = pickle.load(data)
-
-    print("Phone book пункт 1", phone_book)
-    print(type (phone_book))
     return phone_book
